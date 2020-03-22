@@ -9,9 +9,9 @@ sq80toolkit.
 
 The tool runs in three different modes:
 
-prog        - dump individually saved programs
-bank        - dump program banks
-virtbank    - dump individual programs consolidated into "virtual banks"
+- prog : dump individually saved programs
+- bank : dump program banks
+- virtbank : dump individual programs consolidated into "virtual banks"
 
 The data is dumped in either pure binary format, or in SYSEX format suitable
 for sending directly to the synthesizer over MIDI.
