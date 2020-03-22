@@ -20,6 +20,8 @@ The tool can also be used to generate listings of banks/programs on a disk.
 
 Run with the --help option for usage information.
 
+A blog post with an overview of the tool is [here](https://protozoid.tumblr.com/post/613284464564584448/extracting-ensoniq-sq-80-disk-images)
+
 Thanks and acknowledgements to Rainer Buchty (www.buchty.net) for the
 sq80toolkit, and his invaluable work on the SQ80 in general. I have referred to
 the source and documentation of the sq80toolkit extensively for the structure
