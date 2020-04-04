@@ -391,13 +391,14 @@ def mode_bank():
 
         if args.dump:
             print("  BANK {:2} - {}   -> {}".format(bank_num+1,bank,dump_file))
-            dump_bank(read_bank(bank_num),dump_file)
             bank_data=read_bank(bank_num)
 
             # do this to trigger to disk corruption check in sqbytes_to_ascii
             for prog_num in (range(0,40)):
                 prog_name=sqbytes_to_ascii(bank_data[prog_num*102:prog_num*102+6])
     
+            dump_bank(read_bank(bank_num),dump_file)
+
         elif args.list:
             print("BANK {:2} - {}".format(bank_num+1,bank))
             bank_data=read_bank(bank_num)
