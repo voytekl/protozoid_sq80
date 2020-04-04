@@ -204,9 +204,12 @@ def sqbytes_to_ascii(b):
     for c in b:
 
         if c in maps:
-            c=maps[c]
-
-        s+=str(chr(c))
+            s+=str(chr(maps[c]))
+        elif c<32 or c>=127: # non printable characters, this is likely from a corrupt image
+            raise RuntimeError("Invalid character in string. Likely a corrupt disk.")
+            #s+=str("\\"+str(c))
+        else:
+             s+=str(chr(c))
 
     return s
 
@@ -377,7 +380,10 @@ def mode_bank():
                 raise RuntimeError("Specified bank number doesn't exist")
             continue
 
-        dump_file="{}{:02}_{}".format(args.prefix or "BANK",bank_num+1,re.sub(r'\.*$','',bank))
+        bank=re.sub(r'\.*','',bank)
+        bank=re.sub(r'/','_',bank)
+
+        dump_file="{}{:02}_{}".format(args.prefix or "BANK",bank_num+1,bank)
         if args.dump=='syx':
             dump_file+='.syx'
         else:
@@ -386,6 +392,12 @@ def mode_bank():
         if args.dump:
             print("  BANK {:2} - {}   -> {}".format(bank_num+1,bank,dump_file))
             dump_bank(read_bank(bank_num),dump_file)
+            bank_data=read_bank(bank_num)
+
+            # do this to trigger to disk corruption check in sqbytes_to_ascii
+            for prog_num in (range(0,40)):
+                prog_name=sqbytes_to_ascii(bank_data[prog_num*102:prog_num*102+6])
+    
         elif args.list:
             print("BANK {:2} - {}".format(bank_num+1,bank))
             bank_data=read_bank(bank_num)
